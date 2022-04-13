@@ -137,37 +137,37 @@ class ScratcherState extends State<Scratcher> {
       future: _imageLoader,
       builder: (BuildContext context, AsyncSnapshot<ui.Image?> snapshot) {
         if (snapshot.connectionState != ConnectionState.waiting) {
-          return GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onPanStart: canScratch
-                ? (details) {
-                    widget.onScratchStart?.call();
-                    if (widget.enabled) {
-                      _addPoint(details.localPosition);
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(40),
+            ),
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onPanStart: canScratch
+                  ? (details) {
+                      widget.onScratchStart?.call();
+                      if (widget.enabled) {
+                        _addPoint(details.localPosition);
+                      }
                     }
-                  }
-                : null,
-            onPanUpdate: canScratch
-                ? (details) {
-                    widget.onScratchUpdate?.call();
-                    if (widget.enabled) {
-                      _addPoint(details.localPosition);
-                      widget.onPanUpdate?.call(details);
+                  : null,
+              onPanUpdate: canScratch
+                  ? (details) {
+                      widget.onScratchUpdate?.call();
+                      if (widget.enabled) {
+                        _addPoint(details.localPosition);
+                        widget.onPanUpdate?.call(details);
+                      }
                     }
-                  }
-                : null,
-            onPanEnd: canScratch
-                ? (details) {
-                    widget.onScratchEnd?.call();
-                    if (widget.enabled) {
-                      setState(() => points.add(null));
+                  : null,
+              onPanEnd: canScratch
+                  ? (details) {
+                      widget.onScratchEnd?.call();
+                      if (widget.enabled) {
+                        setState(() => points.add(null));
+                      }
                     }
-                  }
-                : null,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-              ),
+                  : null,
               child: AnimatedSwitcher(
                 duration: transitionDuration ?? Duration.zero,
                 child: isFinished
