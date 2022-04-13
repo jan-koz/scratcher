@@ -50,7 +50,10 @@ class Scratcher extends StatefulWidget {
     this.onScratchStart,
     this.onScratchUpdate,
     this.onScratchEnd,
+    this.onPanUpdate,
   }) : super(key: key);
+
+  final Function(BuildContext context, DragUpdateDetails details)? onPanUpdate;
 
   /// Widget rendered under the scratch area.
   final Widget child;
@@ -185,7 +188,11 @@ class ScratcherState extends State<Scratcher> {
                           _lastKnownSize = size;
                         },
                       ),
-                      child: widget.child,
+                      child: GestureDetector(
+                        child: widget.child,
+                        onPanUpdate: (details) =>
+                            widget.onPanUpdate?.call(context, details),
+                      ),
                     ),
             ),
           );
