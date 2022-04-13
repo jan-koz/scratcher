@@ -164,15 +164,15 @@ class ScratcherState extends State<Scratcher> {
                     }
                   }
                 : null,
-            child: AnimatedSwitcher(
-              duration: transitionDuration ?? Duration.zero,
-              child: isFinished
-                  ? widget.child
-                  : Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: CustomPaint(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: AnimatedSwitcher(
+                duration: transitionDuration ?? Duration.zero,
+                child: isFinished
+                    ? widget.child
+                    : CustomPaint(
                         foregroundPainter: ScratchPainter(
                           image: snapshot.data,
                           imageFit: widget.image == null
@@ -196,7 +196,7 @@ class ScratcherState extends State<Scratcher> {
                         ),
                         child: widget.child,
                       ),
-                    ),
+              ),
             ),
           );
         }
