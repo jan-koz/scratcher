@@ -189,8 +189,8 @@ class ScratcherState extends State<Scratcher> {
                         },
                       ),
                       child: GestureDetector(
+                        onPanUpdate: widget.onPanUpdate?.call,
                         child: widget.child,
-                        onPanUpdate: (details) => widget.onPanUpdate?.call,
                       ),
                     ),
             ),
