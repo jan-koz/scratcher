@@ -168,30 +168,32 @@ class ScratcherState extends State<Scratcher> {
               duration: transitionDuration ?? Duration.zero,
               child: isFinished
                   ? widget.child
-                  : CustomPaint(
-                      foregroundPainter: ScratchPainter(
-                        image: snapshot.data,
-                        imageFit: widget.image == null
-                            ? null
-                            : widget.image!.fit ?? BoxFit.cover,
-                        points: points,
-                        color: widget.color,
-                        onDraw: (size) {
-                          if (_lastKnownSize == null) {
-                            _setCheckpoints(size);
-                          } else if (_lastKnownSize != size &&
-                              widget.rebuildOnResize) {
-                            WidgetsBinding.instance?.addPostFrameCallback((_) {
-                              reset();
-                            });
-                          }
-
-                          _lastKnownSize = size;
-                        },
+                  : Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4)),
+                      child: CustomPaint(
+                        foregroundPainter: ScratchPainter(
+                          image: snapshot.data,
+                          imageFit: widget.image == null
+                              ? null
+                              : widget.image!.fit ?? BoxFit.cover,
+                          points: points,
+                          color: widget.color,
+                          onDraw: (size) {
+                            if (_lastKnownSize == null) {
+                              _setCheckpoints(size);
+                            } else if (_lastKnownSize != size &&
+                                widget.rebuildOnResize) {
+                              WidgetsBinding.instance
+                                  ?.addPostFrameCallback((_) {
+                                reset();
+                              });
+                            }
+
+                            _lastKnownSize = size;
+                          },
+                        ),
                         child: widget.child,
                       ),
                     ),
