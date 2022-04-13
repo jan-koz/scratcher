@@ -189,7 +189,11 @@ class ScratcherState extends State<Scratcher> {
                           _lastKnownSize = size;
                         },
                       ),
-                      child: widget.child,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4)),
+                        child: widget.child,
+                      ),
                     ),
             ),
           );
