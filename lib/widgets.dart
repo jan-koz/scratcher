@@ -152,6 +152,7 @@ class ScratcherState extends State<Scratcher> {
                     widget.onScratchUpdate?.call();
                     if (widget.enabled) {
                       _addPoint(details.localPosition);
+                      widget.onPanUpdate?.call(details);
                     }
                   }
                 : null,
@@ -188,10 +189,7 @@ class ScratcherState extends State<Scratcher> {
                           _lastKnownSize = size;
                         },
                       ),
-                      child: GestureDetector(
-                        onPanUpdate: widget.onPanUpdate?.call,
-                        child: widget.child,
-                      ),
+                      child: widget.child,
                     ),
             ),
           );
