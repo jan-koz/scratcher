@@ -53,7 +53,7 @@ class Scratcher extends StatefulWidget {
     this.onPanUpdate,
   }) : super(key: key);
 
-  final Function()? onPanUpdate;
+  final void Function()? onPanUpdate;
 
   /// Widget rendered under the scratch area.
   final Widget child;
